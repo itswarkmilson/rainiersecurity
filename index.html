@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rainier Off Duty - Private Security Services in Seattle</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f4f4f4;
+            overflow-x: hidden;
+        }
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        ul {
+            list-style: none;
+        }
+
+        /* Header and Navigation */
+        header {
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            background-color: rgba(0, 77, 128, 0.8); /* Navy blue for Seattle theme */
+            color: #fff;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            transition: background-color 0.3s ease;
+        }
+        header.scrolled {
+            background-color: rgba(0, 77, 128, 0.95);
+        }
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+        nav ul {
+            display: flex;
+        }
+        nav ul li {
+            margin-left: 2rem;
+        }
+        nav ul li a {
+            position: relative;
+            transition: color 0.3s ease;
+        }
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: #00a651; /* Green accent */
+            transition: width 0.3s ease;
+        }
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+        nav ul li a:hover {
+            color: #00a651;
+        }
+
+        /* Hero Section */
+        #hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1469321461812-afeb94496b27?ixlib=rb-4.0.3&auto=format&fit=crop&w=1932&q=80') no-repeat center/cover;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: #fff;
+            animation: fadeIn 2s ease-out;
+        }
+        #hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            animation: slideInLeft 1s ease-out;
+        }
+        #hero p {
+            font-size: 1.8rem;
+            margin-bottom: 2rem;
+            animation: slideInRight 1s ease-out;
+        }
+        .btn {
+            background-color: #00a651;
+            color: #fff;
+            padding: 1rem 2rem;
+            border-radius: 5px;
+            font-weight: 700;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+        .btn:hover {
+            background-color: #008c45;
+            transform: scale(1.05);
+        }
+
+        /* Services Section */
+        #services {
+            padding: 5rem 2rem;
+            background-color: #fff;
+            text-align: center;
+        }
+        #services h2 {
+            font-size: 3rem;
+            margin-bottom: 3rem;
+            color: #004d80;
+        }
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        .service-card {
+            background-color: #f9f9f9;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            opacity: 0;
+            transform: translateY(50px);
+        }
+        .service-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 16px rgba(0,77,128,0.2);
+        }
+        .service-card h3 {
+            margin-bottom: 1rem;
+            color: #004d80;
+        }
+
+        /* About Section */
+        #about {
+            padding: 5rem 2rem;
+            background-color: #e9ecef;
+            text-align: center;
+        }
+        #about h2 {
+            font-size: 3rem;
+            margin-bottom: 3rem;
+            color: #004d80;
+        }
+        #about p {
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            font-size: 1.1rem;
+        }
+        #about img {
+            width: 100%;
+            max-width: 600px;
+            border-radius: 10px;
+            margin-top: 2rem;
+        }
+
+        /* Contact Section */
+        #contact {
+            padding: 5rem 2rem;
+            background-color: #fff;
+            text-align: center;
+        }
+        #contact h2 {
+            font-size: 3rem;
+            margin-bottom: 3rem;
+            color: #004d80;
+        }
+        form {
+            max-width: 600px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        input, textarea {
+            padding: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            transition: border-color 0.3s ease;
+            font-size: 1rem;
+        }
+        input:focus, textarea:focus {
+            border-color: #00a651;
+            outline: none;
+        }
+        button {
+            background-color: #00a651;
+            color: #fff;
+            border: none;
+            padding: 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 700;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #008c45;
+        }
+        #form-message {
+            margin-top: 1rem;
+            font-weight: bold;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #004d80;
+            color: #fff;
+            text-align: center;
+            padding: 2rem;
+            font-size: 0.9rem;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes slideInLeft {
+            from { transform: translateX(-100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        @keyframes slideInRight {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            #hero h1 {
+                font-size: 2.5rem;
+            }
+            #hero p {
+                font-size: 1.2rem;
+            }
+            nav ul {
+                flex-direction: column;
+                position: absolute;
+                top: 60px;
+                left: 0;
+                width: 100%;
+                background-color: rgba(0,77,128,0.9);
+                display: none;
+            }
+            nav ul.active {
+                display: flex;
+            }
+            nav ul li {
+                margin: 1rem 0;
+                text-align: center;
+            }
+            .menu-toggle {
+                display: block;
+                cursor: pointer;
+            }
+            .menu-toggle span {
+                display: block;
+                width: 25px;
+                height: 3px;
+                background-color: #fff;
+                margin: 5px 0;
+                transition: transform 0.3s ease;
+            }
+            .menu-toggle.active span:nth-child(1) {
+                transform: rotate(45deg) translate(5px, 5px);
+            }
+            .menu-toggle.active span:nth-child(2) {
+                opacity: 0;
+            }
+            .menu-toggle.active span:nth-child(3) {
+                transform: rotate(-45deg) translate(7px, -6px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">Rainier Off Duty</div>
+        <nav>
+            <ul>
+                <li><a href="#hero">Home</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+        <div class="menu-toggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </header>
+
+    <section id="hero">
+        <h1>Premier Private Security in Seattle</h1>
+        <p>Protecting the Emerald City with Professionalism and Dedication</p>
+        <a href="#contact" class="btn">Secure Your Safety Today</a>
+    </section>
+
+    <section id="services">
+        <h2>Our Services</h2>
+        <div class="services-grid">
+            <div class="service-card">
+                <h3>Bodyguard/Personal Protection</h3>
+                <p>Close protection for individuals, VIPs, and executives in the Seattle area.</p>
+            </div>
+            <div class="service-card">
+                <h3>Business Security</h3>
+                <p>On-site guards, access control, and surveillance for local businesses.</p>
+            </div>
+            <div class="service-card">
+                <h3>Patrol Services</h3>
+                <p>Mobile patrols for properties, alarm response across Puget Sound.</p>
+            </div>
+            <div class="service-card">
+                <h3>Event Security</h3>
+                <p>Crowd control and entry screening for Seattle's vibrant events.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="about">
+        <h2>About Us</h2>
+        <p>Rainier Off Duty is a Seattle-based private security company founded by experienced professionals. We specialize in providing customized security solutions to meet the unique needs of our clients in the Pacific Northwest.</p>
+        <p>Inspired by the majestic Mt. Rainier, we stand tall in our commitment to integrity, professionalism, and innovation, ensuring the safety of businesses, individuals, and events in the region.</p>
+        <img src="https://clipart-library.com/images/yikKgBqaT.jpg" alt="Seattle Skyline Silhouette">
+    </section>
+
+    <section id="contact">
+        <h2>Contact Us</h2>
+        <form id="contact-form">
+            <input type="text" id="name" placeholder="Your Name" required>
+            <input type="email" id="email" placeholder="Your Email" required>
+            <textarea id="message" placeholder="Your Message" rows="5" required></textarea>
+            <button type="submit">Send Message</button>
+        </form>
+        <div id="form-message"></div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Rainier Off Duty. All rights reserved. Serving Seattle and the Puget Sound Region.</p>
+    </footer>
+
+    <script>
+        // Header Scroll Effect
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            header.classList.toggle('scrolled', window.scrollY > 0);
+        });
+
+        // Mobile Menu Toggle
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navUl = document.querySelector('nav ul');
+        menuToggle.addEventListener('click', () => {
+            menuToggle.classList.toggle('active');
+            navUl.classList.toggle('active');
+        });
+
+        // Smooth Scroll for Nav Links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Animate Services Cards on Scroll
+        const serviceCards = document.querySelectorAll('.service-card');
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+        serviceCards.forEach(card => observer.observe(card));
+
+        // Contact Form Submission (Simulated)
+        const form = document.getElementById('contact-form');
+        const formMessage = document.getElementById('form-message');
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            // Simulate form submission
+            formMessage.textContent = 'Message sent successfully!';
+            formMessage.style.color = 'green';
+            form.reset();
+            setTimeout(() => {
+                formMessage.textContent = '';
+            }, 3000);
+        });
+    </script>
+</body>
+</html>
